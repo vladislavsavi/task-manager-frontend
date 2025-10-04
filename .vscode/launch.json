@@ -1,0 +1,47 @@
+// task-manager-frontend/.vscode/launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Конфигурация 1: Запуск сервера Next.js (npm run dev)
+      "name": "Next.js: Launch Development Server",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      // Команда, которую мы хотим выполнить: "npm run dev"
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "console": "integratedTerminal", // Вывод будет в терминале VS Code
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      // Конфигурация 2: Подключение Chrome к работающему серверу
+      "name": "Next.js: Debug in Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        // Это КЛЮЧЕВОЙ момент: сопоставление путей,
+        // чтобы отладчик VS Code видел ваши исходные файлы TypeScript в папке 'src'
+        "webpack://_N_E/./*": "${webRoot}/*",
+        "webpack://_N_E/./src/*": "${webRoot}/src/*"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      // COMPOUND: одновременный запуск обеих конфигураций
+      "name": "Next.js: All-in-One Debug",
+      "configurations": [
+        "Next.js: Launch Development Server",
+        "Next.js: Debug in Chrome"
+      ],
+      "stopAll": true // Останавливает обе конфигурации при завершении отладки
+    }
+  ]
+}
